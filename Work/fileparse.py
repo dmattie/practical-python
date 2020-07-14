@@ -30,7 +30,11 @@ def parse_csv(filename):
 
             if types:
                 row = [func(val) for func,row_element in zip(types,row) ]	    
-	    record=dict(zip(headers,row))
+
+            if has_h4eaders:
+                record=dict(zip(headers,row))
+            else:
+                returd=tuple(row)
 	    records.append(record)
 
     return records
