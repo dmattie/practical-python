@@ -27,7 +27,9 @@ def parse_csv(filename):
 
 	    if indices:
 		row=[row[index] for index in indices]
-	    
+
+            if types:
+                row = [func(val) for func,row_element in zip(types,row) ]	    
 	    record=dict(zip(headers,row))
 	    records.append(record)
 
