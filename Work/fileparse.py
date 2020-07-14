@@ -13,11 +13,22 @@ def parse_csv(filename):
 
         # Read the file headers
         headers = next(rows)
+
+        if select:
+	    indices = [headers.index(colname) for colname in select]
+	    headers=select
+	else:
+ 	    indices=[]
+
         records = []
         for row in rows:
             if not row:    # Skip rows with no data
                 continue
-            record = dict(zip(headers, row))
-            records.append(record)
+
+	    if indices:
+		row=[row[index] for index in indices]
+	    
+	    record=dict(zip(headers,row))
+	    records.append(record)
 
     return records
