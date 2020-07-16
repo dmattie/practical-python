@@ -13,7 +13,7 @@ month=10
 while principal > 0:
     month = month + 1
     principal = (principal * (1+rate/12)) - payment
-    total_paid = total_paid + payment
+    total_paid = total_paid + min(principal,payment)
 
     if month >= extra_payment_start_month and month <= extra_payment_end_month:
         principal = principal - extra_payment
