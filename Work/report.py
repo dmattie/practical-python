@@ -60,5 +60,9 @@ print('Current value', total_value)
 print('Gain', total_value - total_cost)
 
 report = make_report(portfolio, prices)
+
+headers = ('Name', 'Shares', 'Price', 'Change')
+print('%10s %10s %10s %10s' % headers)
+print('---------- ---------- ---------- -----------')
 for r in report:
         print('%10s %10d %10.2f %10.2f' % r)
