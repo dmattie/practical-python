@@ -44,25 +44,31 @@ def make_report(portfolio, prices):
         rows.append(summary)
     return rows
 
-portfolio = read_portfolio('Data/portfolio.csv')
-prices    = read_prices('Data/prices.csv')
+def portfolio_report(portfoliofile,pricefile):        
+    '''
+    Make a stock report given portfolio and price data files.
+    '''
+    # Read data files 
+    portfolio = read_portfolio(portfoliofile)
+    prices = read_prices(pricefile)
 
-total_cost = 0.0
-for s in portfolio:
-    total_cost += s['shares']*s['price']
+    # Create the report data
+    report = make_report(portfolio,prices)
 
-total_value = 0.0
-for s in portfolio:
-    total_value += s['shares']*prices[s['name']]
+    # Print it out
+    print_report(report)
 
-print('Total cost', total_cost)
-print('Current value', total_value)
-print('Gain', total_value - total_cost)
 
-report = make_report(portfolio, prices)
 
-headers = ('Name', 'Shares', 'Price', 'Change')
-print('%10s %10s %10s %10s' % headers)
-print('---------- ---------- ---------- -----------')
-for r in report:
-        print('%10s %10d %10.2f %10.2f' % r)
+def print_report(reportdata):
+    '''
+    Print a nicely formated table from a list of (name, shares, price, change) tuples.
+    '''
+    headers = ('Name','Shares','Price','Change')
+    print('%10s %10s %10s %10s' % headers)
+    print(('-'*10 + ' ')*len(headers))
+    for row in reportdata:
+        print('%10s %10d %10.2f %10.2f' % row)
+
+portfolio_report('Data/portfolio.csv',
+                 'Data/prices.csv')
